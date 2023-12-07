@@ -41,4 +41,7 @@ main();
 //     res.json({'Circulating_Supply':circulatingSupply})
 // })
 
-app.listen(5001, () => console.log("server port:5001"))
+// app.listen(5001, () => console.log("server port:5001"))
+app.listen(process.env.PORT || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
