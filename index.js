@@ -1,6 +1,8 @@
 const ethers = require("ethers");
 const liquidABI = require("./abi/Token.json");
 require("dotenv").config();
+const express = require('express');
+const app = express()
 
 async function main(){
     const tokenAddress = "0x2749C9f2f8568d389BBF61ed77784A43C3cD3E19"; 
@@ -22,6 +24,21 @@ async function main(){
         sum+=Number(ethers.utils.formatEther(lockedToken))
     }
     const LeftSupply=ethers.utils.formatEther(totalSupply)-sum
-    console.log('Circulating Supply',LeftSupply)
+    
+    // console.log('Circulating Supply',LeftSupply)
+    // return (LeftSupply)
+    app.get("/api/circulatingsupply", (req,res) => {
+        // const circulatingSupply = main()
+        // console.log('Circulating Supply',circulatingSupply)
+        res.json({'Circulating_Supply':LeftSupply})
+    })
 }
 main();
+
+// app.get("/api/circulatingsupply", (req,res) => {
+//     const circulatingSupply = main()
+//     console.log('Circulating Supply',circulatingSupply)
+//     res.json({'Circulating_Supply':circulatingSupply})
+// })
+
+app.listen(5001, () => console.log("server port:5001"))
